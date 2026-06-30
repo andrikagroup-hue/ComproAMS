@@ -201,6 +201,27 @@ nav.main-nav a:hover::after { width: 100%; }
 .tailor-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,35,64,.9) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
 .tailor-overlay h4 { font-size: 14px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
 .tailor-overlay p { font-size: 12px; color: rgba(255,255,255,.7); line-height: 1.5; }
+.vehicle-slider { position: absolute; inset: 0; }
+.vehicle-slider img { position: absolute; inset: 0; opacity: 0; animation: vehicleFade 36s infinite; }
+.vehicle-slider img:nth-child(1) { animation-delay: 0s; }
+.vehicle-slider img:nth-child(2) { animation-delay: 3s; }
+.vehicle-slider img:nth-child(3) { animation-delay: 6s; }
+.vehicle-slider img:nth-child(4) { animation-delay: 9s; }
+.vehicle-slider img:nth-child(5) { animation-delay: 12s; }
+.vehicle-slider img:nth-child(6) { animation-delay: 15s; }
+.vehicle-slider img:nth-child(7) { animation-delay: 18s; }
+.vehicle-slider img:nth-child(8) { animation-delay: 21s; }
+.vehicle-slider img:nth-child(9) { animation-delay: 24s; }
+.vehicle-slider img:nth-child(10) { animation-delay: 27s; }
+.vehicle-slider img:nth-child(11) { animation-delay: 30s; }
+.vehicle-slider img:nth-child(12) { animation-delay: 33s; }
+@keyframes vehicleFade {
+  0% { opacity: 0; }
+  1.5% { opacity: 1; }
+  7% { opacity: 1; }
+  8.3% { opacity: 0; }
+  100% { opacity: 0; }
+}
 
 /* ── BUSINESS DEVELOPMENT ── */
 .process-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; margin-bottom: 48px; }
@@ -623,7 +644,20 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
     </div>
     <div class="tailor-grid reveal">
       <div class="tailor-card">
-        <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?w=600&q=80" alt="Vehicle Fire Suppression" loading="lazy">
+        <div class="vehicle-slider">
+          <img src="images/produk/vehicle/1.jpg" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/2.webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/3.webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/4.jpg" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/5.jpg" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/6.jpg" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/th%20(1).webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/th%20(2).webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/th%20(3).webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/th%20(4).webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/th%20(5).webp" alt="Vehicle Fire Suppression" loading="lazy">
+          <img src="images/produk/vehicle/th.webp" alt="Vehicle Fire Suppression" loading="lazy">
+        </div>
         <div class="tailor-overlay">
           <h4>Vehicle Fire Suppression</h4>
           <p>Perlindungan andal untuk kendaraan dan peralatan mobile.</p>
