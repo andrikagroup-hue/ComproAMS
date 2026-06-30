@@ -114,7 +114,7 @@ nav.main-nav a:hover::after { width: 100%; }
 /* ── ABOUT ── */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
-.about-img-stack { position: relative; }
+.about-img-stack { position: relative; padding-bottom: 60px; }
 .about-img-main { border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-dark); }
 .about-img-main img { width: 100%; height: 420px; object-fit: cover; }
 .about-img-badge { position: absolute; bottom: -12px; right: -12px; background: #5ce1e6; padding: 4px; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.25); }
@@ -131,7 +131,13 @@ nav.main-nav a:hover::after { width: 100%; }
 @media (max-width: 768px) { .vm-grid { grid-template-columns: 1fr; gap: 28px; } }
 .vm-card { background: rgba(255,255,255,.06); border: 1px solid rgba(92,225,230,.2); border-radius: 16px; padding: 40px; position: relative; overflow: hidden; transition: transform .3s; }
 .vm-card:hover { transform: translateY(-6px); }
-.vm-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--orange)); }
+.vm-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--teal), var(--orange)); }
+.vm-card.visi-card { background: #ffffff; border: 1px solid var(--teal-light); box-shadow: 0 8px 32px rgba(92,225,230,0.18); }
+.vm-card.visi-card h3 { color: var(--navy); }
+.vm-card.visi-card p { color: var(--steel); }
+.vm-card.visi-card .vm-icon { background: var(--teal-pale); }
+.vm-card.visi-card .vm-icon i { color: var(--teal-darker); }
+.vm-card.visi-card::before { background: linear-gradient(90deg, var(--teal-darker), var(--teal)); }
 .vm-icon { width: 56px; height: 56px; background: rgba(92,225,230,.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
 .vm-icon i { font-size: 24px; color: var(--teal); }
 .vm-card h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 16px; }
@@ -139,6 +145,11 @@ nav.main-nav a:hover::after { width: 100%; }
 .vm-mission-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 .vm-mission-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px; color: rgba(255,255,255,.75); }
 .vm-mission-item i { color: var(--teal); font-size: 16px; margin-top: 3px; flex-shrink: 0; }
+/* ── COMMITMENT BADGE ── */
+.about-commitment-badge { position: absolute; bottom: -16px; left: 20px; right: 20px; background: #fff; border-radius: 12px; padding: 16px 20px; box-shadow: 0 8px 32px rgba(13,35,64,0.18); border-left: 4px solid var(--teal); }
+.about-commitment-title { font-family: var(--font); font-size: 13px; font-weight: 800; color: var(--navy); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.about-commitment-title i { color: var(--teal-darker); }
+.about-commitment-text { font-size: 13px; color: var(--steel); line-height: 1.6; margin: 0; }
 
 /* ── VALUES ── */
 .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
@@ -348,10 +359,11 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
     <div class="about-grid">
       <div class="about-img-stack reveal">
         <div class="about-img-main">
-          <img src="images/produk/welcoming.jpg" alt="AMS Fire Protection Engineers" loading="lazy">
+          <img src="images/produk/ams1.png" alt="AMS Fire Protection Engineers" loading="lazy">
         </div>
-        <div class="about-img-badge">
-          <img src="images/logo-partner/transparant.png" alt="AMS Logo" style="width:175px;height:auto;filter:drop-shadow(0 4px 16px rgba(0,0,0,0.5))">
+        <div class="about-commitment-badge">
+          <div class="about-commitment-title"><i class="fas fa-shield-halved"></i> Komitmen Kami</div>
+          <p class="about-commitment-text">Integritas dalam setiap langkah, kompetensi dalam setiap keputusan, dan keberlanjutan dalam setiap solusi.</p>
         </div>
       </div>
       <div class="about-content reveal reveal-delay-2">
@@ -381,7 +393,7 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
       <p class="section-lead" style="color:rgba(255,255,255,.65)">Dipandu oleh nilai Integrity · Competency · Sustainability</p>
     </div>
     <div class="vm-grid">
-      <div class="vm-card reveal">
+      <div class="vm-card visi-card reveal">
         <div class="vm-icon"><i class="fas fa-eye"></i></div>
         <h3>Visi</h3>
         <p>Menjadi mitra proteksi kebakaran paling terpercaya di Indonesia, diakui atas keunggulan keselamatan, rancangan, dan inovasi berkelanjutan.</p>
