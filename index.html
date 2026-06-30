@@ -540,8 +540,19 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
         </div>
       </div>
       <div class="product-card reveal reveal-delay-2">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=700&q=80" alt="Fire Suppression Systems" loading="lazy">
+        <div class="product-img" style="position:relative;overflow:hidden;">
+          <!-- SLIDER FSS -->
+          <div id="fss-slider" style="display:flex;width:100%;height:100%;transition:none;">
+            <img src="images/produk/FSS/1.png" alt="Fire Suppression 1" loading="lazy" style="width:100%;height:420px;object-fit:cover;flex-shrink:0;">
+            <img src="images/produk/FSS/2.png" alt="Fire Suppression 2" loading="lazy" style="width:100%;height:420px;object-fit:cover;flex-shrink:0;">
+            <img src="images/produk/FSS/3.png" alt="Fire Suppression 3" loading="lazy" style="width:100%;height:420px;object-fit:cover;flex-shrink:0;">
+            <img src="images/produk/FSS/4.png" alt="Fire Suppression 4" loading="lazy" style="width:100%;height:420px;object-fit:cover;flex-shrink:0;">
+          </div>
+          <!-- Tombol Panah -->
+          <button onclick="fssSlide(-1)" aria-label="Sebelumnya" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(13,35,64,.7);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s;" onmouseover="this.style.background='rgba(92,225,230,.85)'" onmouseout="this.style.background='rgba(13,35,64,.7)'">&#8249;</button>
+          <button onclick="fssSlide(1)" aria-label="Berikutnya" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(13,35,64,.7);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s;" onmouseover="this.style.background='rgba(92,225,230,.85)'" onmouseout="this.style.background='rgba(13,35,64,.7)'">&#8250;</button>
+          <!-- Counter -->
+          <div id="fss-counter" style="position:absolute;bottom:8px;right:10px;background:rgba(13,35,64,.65);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px;font-family:var(--font);letter-spacing:.05em;">1 / 4</div>
         </div>
         <div class="product-body">
           <div class="product-num">02 — Suppression</div>
@@ -871,6 +882,16 @@ function daSlide(dir) {
   slider.style.transition = 'transform .3s ease';
   slider.style.transform = 'translateX(-' + (daIndex * 100) + '%)';
   document.getElementById('da-counter').textContent = (daIndex + 1) + ' / ' + daTotalSlides;
+}
+// Slider Fire Suppression Systems
+var fssIndex = 0;
+var fssTotalSlides = 4;
+function fssSlide(dir) {
+  fssIndex = (fssIndex + dir + fssTotalSlides) % fssTotalSlides;
+  var slider = document.getElementById('fss-slider');
+  slider.style.transition = 'transform .3s ease';
+  slider.style.transform = 'translateX(-' + (fssIndex * 100) + '%)';
+  document.getElementById('fss-counter').textContent = (fssIndex + 1) + ' / ' + fssTotalSlides;
 }
 // Header scroll
 const header = document.getElementById('header');
