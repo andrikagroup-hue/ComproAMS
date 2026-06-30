@@ -221,6 +221,24 @@ nav.main-nav a:hover::after { width: 100%; }
 .kitchen-slider img:nth-child(2) { animation-delay: 3s; }
 .kitchen-slider img:nth-child(3) { animation-delay: 6s; }
 .kitchen-slider img:nth-child(4) { animation-delay: 9s; }
+.clean-slider { position: absolute; inset: 0; }
+.clean-slider img { position: absolute; inset: 0; opacity: 0; animation: cleanFade 27s infinite; }
+.clean-slider img:nth-child(1) { animation-delay: 0s; }
+.clean-slider img:nth-child(2) { animation-delay: 3s; }
+.clean-slider img:nth-child(3) { animation-delay: 6s; }
+.clean-slider img:nth-child(4) { animation-delay: 9s; }
+.clean-slider img:nth-child(5) { animation-delay: 12s; }
+.clean-slider img:nth-child(6) { animation-delay: 15s; }
+.clean-slider img:nth-child(7) { animation-delay: 18s; }
+.clean-slider img:nth-child(8) { animation-delay: 21s; }
+.clean-slider img:nth-child(9) { animation-delay: 24s; }
+@keyframes cleanFade {
+  0% { opacity: 0; }
+  2% { opacity: 1; }
+  9.5% { opacity: 1; }
+  11% { opacity: 0; }
+  100% { opacity: 0; }
+}
 @keyframes kitchenFade {
   0% { opacity: 0; }
   4.5% { opacity: 1; }
@@ -689,7 +707,17 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
         </div>
       </div>
       <div class="tailor-card">
-        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Server Room Clean Agent" loading="lazy">
+        <div class="clean-slider">
+          <img src="images/produk/Clean%20Agent/1.jpg" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/2.webp" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/3.webp" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/4.webp" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/5.jpg" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/6.jpg" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/7.webp" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/8.webp" alt="Server Room Clean Agent" loading="lazy">
+          <img src="images/produk/Clean%20Agent/9.webp" alt="Server Room Clean Agent" loading="lazy">
+        </div>
         <div class="tailor-overlay">
           <h4>Server Room & Clean Agent</h4>
           <p>Sistem clean agent untuk melindungi infrastruktur IT kritis.</p>
