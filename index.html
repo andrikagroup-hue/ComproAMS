@@ -380,6 +380,7 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
   .subscribe-title { font-size: 16px; }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <!-- ══ SUBSCRIBE POPUP ══ -->
@@ -1248,9 +1249,40 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     }
   });
 
-  form.addEventListener('submit', function (e) {
+  // ── Supabase connection ──
+  var SUPABASE_URL = 'https://xcmpsmydlgtvegqtokez.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjbXBzbXlkbGd0dmVncXRva2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4NTI1NjAsImV4cCI6MjA5NzQyODU2MH0.opac4K11jP9O85PqsZV5BWD08oaaZ2OehQrvp2R_wsY';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    // TODO: connect to Supabase here (next step)
+    var emailInput = document.getElementById('subEmail');
+    var firstInput = document.getElementById('subFirstName');
+    var lastInput = document.getElementById('subLastName');
+    var submitBtn = form.querySelector('.subscribe-submit');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    var { error } = await sb.from('subscribers').insert({
+      email: emailInput.value.trim(),
+      first_name: firstInput.value.trim() || null,
+      last_name: lastInput.value.trim() || null
+    });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Safety First – Sign Me Up!';
+
+    if (error) {
+      if (error.code === '23505') {
+        msg.textContent = 'This email is already subscribed!';
+      } else {
+        msg.textContent = 'Something went wrong. Please try again.';
+      }
+      msg.style.color = '#7a0000';
+      return;
+    }
+
     msg.textContent = 'Thanks for subscribing! 🔥';
     msg.style.color = '#0d2340';
     subscribed = true;
