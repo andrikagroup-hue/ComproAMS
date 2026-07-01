@@ -295,9 +295,116 @@ footer { background: #07111f; color: rgba(255,255,255,.6); }
 /* ── DIVIDER ── */
 .teal-stripe { height: 4px; background: linear-gradient(90deg, var(--teal), var(--orange), var(--teal)); }
 .bg-paper { background: var(--paper); }
+
+/* ── SUBSCRIBE POPUP ── */
+.subscribe-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,35,64,0.55);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.subscribe-overlay.show { display: flex; }
+.subscribe-box {
+  position: relative;
+  background: linear-gradient(160deg, var(--orange) 0%, var(--orange-light) 100%);
+  color: var(--white);
+  max-width: 440px;
+  width: 100%;
+  border-radius: 14px;
+  padding: 36px 32px 30px;
+  box-shadow: var(--shadow-dark);
+  text-align: left;
+  animation: subscribePop .35s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+@keyframes subscribePop {
+  from { opacity: 0; transform: scale(.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+.subscribe-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: var(--teal);
+  color: var(--navy);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s ease;
+}
+.subscribe-close:hover { background: var(--teal-dark); }
+.subscribe-icon { font-size: 30px; margin-bottom: 6px; color: #ff3b30; }
+.subscribe-logo { width: 56px; height: 56px; object-fit: contain; margin: 0 auto; border-radius: 8px; background: var(--white); padding: 6px; }
+.subscribe-title { font-size: 22px; color: var(--teal); margin-bottom: 10px; }
+.subscribe-desc { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.95); margin-bottom: 10px; }
+.subscribe-tagline { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 18px; }
+.subscribe-form { display: flex; flex-direction: column; gap: 4px; }
+.subscribe-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: rgba(255,255,255,0.9); margin-top: 8px; }
+.subscribe-label .req { color: var(--navy); }
+.subscribe-input {
+  padding: 11px 14px;
+  border-radius: 6px;
+  border: none;
+  font-family: var(--font-b);
+  font-size: 14px;
+  margin-bottom: 4px;
+  background: var(--white);
+  color: var(--ink);
+}
+.subscribe-input:focus { outline: 2px solid var(--navy); }
+.subscribe-submit {
+  margin-top: 16px;
+  background: var(--teal);
+  color: var(--navy);
+  font-family: var(--font);
+  font-weight: 800;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  padding: 14px;
+  border-radius: 6px;
+  transition: all .25s ease;
+}
+.subscribe-submit:hover { background: var(--teal-dark); transform: translateY(-2px); }
+.subscribe-msg { margin-top: 12px; font-size: 13px; font-weight: 600; text-align: center; }
+@media (max-width: 480px) {
+  .subscribe-box { padding: 28px 22px 24px; }
+  .subscribe-title { font-size: 19px; }
+}
 </style>
 </head>
 <body>
+<!-- ══ SUBSCRIBE POPUP ══ -->
+<div id="subscribeOverlay" class="subscribe-overlay">
+  <div class="subscribe-box">
+    <button id="subscribeClose" class="subscribe-close" aria-label="Close">&times;</button>
+    <div class="subscribe-icon"><img src="images/logo-partner/AMS.png" alt="AMS" class="subscribe-logo"></div>
+    <h3 class="subscribe-title">Stop, Drop, and Subscribe... to AMS!</h3>
+    <p class="subscribe-desc">Get the latest product updates, fire safety tips, and special offers straight from PT Andrika Mitra Solusi. No spam — just the good stuff!</p>
+    <p class="subscribe-tagline"><i class="fa-solid fa-bullhorn"></i> Join now, stay fire-ready!</p>
+    <form id="subscribeForm" class="subscribe-form">
+      <label class="subscribe-label">Email <span class="req">*</span></label>
+      <input type="email" id="subEmail" class="subscribe-input" placeholder="you@example.com" required>
+      <label class="subscribe-label">First Name</label>
+      <input type="text" id="subFirstName" class="subscribe-input" placeholder="First name">
+      <label class="subscribe-label">Last Name</label>
+      <input type="text" id="subLastName" class="subscribe-input" placeholder="Last name">
+      <button type="submit" class="subscribe-submit">Safety First – Sign Me Up!</button>
+    </form>
+    <p id="subscribeMsg" class="subscribe-msg"></p>
+  </div>
+</div>
+
 
 <!-- HEADER -->
 <header id="header">
@@ -1106,6 +1213,53 @@ const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── SUBSCRIBE POPUP LOGIC ──
+(function () {
+  var overlay = document.getElementById('subscribeOverlay');
+  var closeBtn = document.getElementById('subscribeClose');
+  var form = document.getElementById('subscribeForm');
+  var msg = document.getElementById('subscribeMsg');
+  var closedByX = false;
+  var exitShown = false;
+  var subscribed = sessionStorage.getItem('ams_subscribed') === 'true';
+
+  function openPopup() {
+    if (subscribed) return;
+    overlay.classList.add('show');
+  }
+  function closePopup() {
+    overlay.classList.remove('show');
+  }
+
+  if (!subscribed) {
+    // Show immediately on page load
+    openPopup();
+  }
+
+  closeBtn.addEventListener('click', function () {
+    closedByX = true;
+    closePopup();
+  });
+
+  // Exit intent: mouse moves toward top of browser (about to close tab / go to another tab)
+  document.addEventListener('mouseleave', function (e) {
+    if (e.clientY <= 0 && closedByX && !exitShown && !subscribed) {
+      exitShown = true;
+      openPopup();
+    }
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    // TODO: connect to Supabase here (next step)
+    msg.textContent = 'Thanks for subscribing! 🔥';
+    msg.style.color = '#0d2340';
+    subscribed = true;
+    sessionStorage.setItem('ams_subscribed', 'true');
+    setTimeout(closePopup, 1500);
+  });
+})();
 </script>
 </body>
 </html>
